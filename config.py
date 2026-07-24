@@ -214,3 +214,4 @@ ENABLE_CITATIONS = True
 CITATION_TEMPLATE = (
     "{file} | Page {page} | Chunk {chunk}"
 )
+DOCUMENT_DIRECTORY=DOCUMENTS_DIR
