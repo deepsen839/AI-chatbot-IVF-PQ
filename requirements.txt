@@ -45,7 +45,7 @@ opencv-python-headless==4.12.0.88
 orjson==3.11.1
 
 # Logging
-rich==14.1.0
+rich==13.9.4
 
 # Progress
 alive-progress==3.3.0
