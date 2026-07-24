@@ -5,7 +5,7 @@ pymupdf==1.26.3
 pillow==11.3.0
 
 # OCR
-paddlepaddle-gpu==3.2.0
+
 paddleocr==3.2.0
 
 # AI / Embeddings
