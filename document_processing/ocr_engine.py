@@ -52,12 +52,8 @@ class OCREngine:
         )
 
         self.ocr = PaddleOCR(
-
             lang=OCR_LANGUAGE,
-
-            use_gpu=OCR_USE_GPU,
-
-            show_log=False,
+            device="gpu",
         )
 
         logger.info(
