@@ -105,13 +105,28 @@ MIN_CHUNK_LENGTH = 100
 # OCR
 # -----------------------------------------------------------------------------
 
+# -----------------------------------------------------------------------------
+# OCR
+# -----------------------------------------------------------------------------
+
 OCR_LANGUAGE = "en"
+
+# Render PDF pages at this DPI before OCR
+OCR_DPI = 300
 
 OCR_USE_GPU = True
 
 OCR_BATCH_SIZE = 8
 
 OCR_MIN_TEXT_THRESHOLD = 40
+
+# Cache rendered images and OCR text
+OCR_CACHE_DIR = CACHE_DIR / "ocr"
+
+OCR_CACHE_DIR.mkdir(
+    parents=True,
+    exist_ok=True,
+)
 # If extracted text from a page is below this,
 # OCR will be executed.
 
