@@ -67,74 +67,86 @@ if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
 
+import time
+
 @st.cache_resource(show_spinner=False)
 def build_pipeline():
 
+    t = time.perf_counter()
+
+    logger.info("1. MetadataRepository")
     metadata = MetadataRepository()
+    logger.info("Done %.2f", time.perf_counter()-t)
 
-    faiss = FaissRepository()
+    t = time.perf_counter()
+    logger.info("2. FaissRepository")
+    faiss = FaissRepository(metadata)
+    logger.info("Done %.2f", time.perf_counter()-t)
 
+    t = time.perf_counter()
+    logger.info("3. PDFLoader")
     loader = PDFLoader()
+    logger.info("Done %.2f", time.perf_counter()-t)
 
+    t = time.perf_counter()
+    logger.info("4. OCR")
     ocr = OCREngine()
+    logger.info("Done %.2f", time.perf_counter()-t)
 
+    t = time.perf_counter()
+    logger.info("5. Chunker")
     chunker = DocumentChunker()
+    logger.info("Done %.2f", time.perf_counter()-t)
 
+    t = time.perf_counter()
+    logger.info("6. Embedding")
     embedding = EmbeddingModel()
+    logger.info("Done %.2f", time.perf_counter()-t)
 
+    t = time.perf_counter()
+    logger.info("7. Indexer")
     indexer = IncrementalIndexer(
-
         pdf_loader=loader,
-
         ocr_engine=ocr,
-
         chunker=chunker,
-
         embedding_model=embedding,
-
         faiss_repository=faiss,
-
         metadata_repository=metadata,
     )
+    logger.info("Done %.2f", time.perf_counter()-t)
 
+    t = time.perf_counter()
+    logger.info("8. Retriever")
     retriever = Retriever(
-
         embedding,
-
         faiss,
-
         metadata,
     )
+    logger.info("Done %.2f", time.perf_counter()-t)
 
+    t = time.perf_counter()
+    logger.info("9. Reranker")
     reranker = Reranker()
+    logger.info("Done %.2f", time.perf_counter()-t)
 
+    t = time.perf_counter()
+    logger.info("10. LLM")
     llm = LLMService(
-
         retriever,
-
         reranker,
     )
+    logger.info("Done %.2f", time.perf_counter()-t)
 
     return {
-
         "metadata": metadata,
-
         "faiss": faiss,
-
         "loader": loader,
-
         "ocr": ocr,
-
         "chunker": chunker,
-
         "embedding": embedding,
-
         "indexer": indexer,
-
         "retriever": retriever,
-
         "reranker": reranker,
-
         "llm": llm,
     }
 
