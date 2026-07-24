@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment
+.env
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+logs/
+*.log
+
+# Storage
+storage/cache/
+storage/documents/
+storage/images/
+
+# FAISS
+storage/index/index.faiss
+storage/index/index_metadata.pkl
+
+# Metadata
+storage/metadata.db
+storage/processed_files.json
+
+# OS
+.DS_Store
+Thumbs.db
